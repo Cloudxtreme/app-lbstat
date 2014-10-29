@@ -1,0 +1,25 @@
+{
+    "name": "app/lbstat",
+    "description": "",
+    "authors": [
+        {
+            "name": "Matthew Reschke",
+            "email": "mreschke@dynatronsoftware.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.2.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations",
+            "src/controllers",
+            "src/commands"
+        ],
+        "psr-0": {
+            "App\\Lbstat\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
