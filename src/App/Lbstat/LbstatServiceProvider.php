@@ -32,6 +32,10 @@ class LbstatServiceProvider extends ServiceProvider {
 	public function register()
 	{
 		\Lifecycle::add(__FILE__.' - '.__FUNCTION__);
+
+		$this->app->bind('Mreschke\Dbal\DbalInterface', 'Mreschke\Dbal\Mssql');
+		$this->app->bind('App\Lbstat\Repositories\LbstatRepositoryInterface', 'App\Lbstat\Repositories\MssqlLbstatRepository');
+
 	}
 
 	/**

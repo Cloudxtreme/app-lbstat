@@ -2,29 +2,45 @@
 
 use Mrcore;
 use View;
-
+use DB;
+use Mssql;
+use App\Lbstat\Repositories\LbstatRepositoryInterface;
 
 class LbstatController extends \BaseController {
+
+	protected $repo;
+
+	public function __construct(LbstatRepositoryInterface $repo)
+	{
+		$this->repo = $repo;
+	}
+
 
 	public function index()
 	{
 		\Lifecycle::add(__FILE__.' - '.__FUNCTION__);
 
-		/*$query = "
-			SELECT date, sum(req) as req, sum(req_internal) as req_internal, sum(req_external) as req_external --avg_size avg_speed
-			FROM [Utility].[dbo].[tbl_stat_lb]
-			WHERE datepart(dw, date) not in (1,7) --1=sunday, 7=saturday
-			group by date
-			order by date
-		";*/
 
-		#$x = \Mssql::connection('dyna-sql6')->query($query)->get();
+		#$x = DB::connection('dyna-sql1')->table('tblApplications')->get();
 
-		#dd($x->collapse());
+
+		#$x = Mssql::query("SELECT * FROM dbo.tblApplications")->get();
+
+		#dd($this->repo);
+
+		$data = $this->repo->test()->toJson();
+
+		#$x->count()
+		#$x->first();
+
+		#dd( $x );
+		#dd( $x[0]->APP_Name );
+
+
 
 		$post = Mrcore::post()->prepare();
 		return View::make('lbstat::index', compact(
-			'post'
+			'post', 'data'
 		));
 	}
 
