@@ -53,7 +53,6 @@
 	$( ".wb-lb-filter" ).change(function() {
 		fnLoadCharts();
 	});
-
 	</script>
 
 @stop

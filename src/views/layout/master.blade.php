@@ -1,11 +1,9 @@
 @extends('layout.workbench')
 
 @section('css')
-	@parent
-	<link href="//css.dynatronsoftware.com/jchartfx/jchartfx.attributes.css" rel="stylesheet">
-	<link href="//cdn.datatables.net/plug-ins/380cb78f450/integration/bootstrap/3/dataTables.bootstrap.css">
+	@parent	
+	
 	<style>
-
 		.body, .no-container .body {
 			padding: 0px 0px 0px 0px;
 		}
@@ -48,10 +46,15 @@
 			right:25px;
 		}
 
+		.panel-icons button {
+			display:none;
+		}
+
 		.chkbox-group {
 			 display:inline;
 			 font-size:10px;
 		}
+		
 		.chkbox-group input {
 			margin:5px;
 		}
@@ -66,24 +69,26 @@
 		<div class="container">
 			<div class="row wb-subheader-row">
 				<div class="col-md-3 wb-subheader-label bg-primary">
-					<div class="text-default"><i class="fa fa-sliders fa-large"></i> Load Balancer</div>
+					<div class="text-default">
+						<i class="fa fa-sliders fa-large"></i> Load Balancer
+					</div>
 				</div>
-				<div class="col-md-6 wb-subheader-content">
-					<select name="ddlChartType" id="ddlChartType" class="form-control wb-lb-filter" style="width:250px;">
+				<div class="col-md-9 wb-subheader-content">
+					<select name="ddlChartType" id="ddlChartType" class="form-control wb-lb-filter" style="display:inline;width:250px;">
 						<option value="Overview" selected="selected">Overview Charts</option>
 						<option value="Apps">App Charts</option>
 						<option value="Pages">Page Charts</option>
 					</select>
-				</div>
-				<div class="col-md-3 wb-subheader-cap text-right">
-					<select name="ddlDateRange" id="ddlDateRange" class="form-control wb-lb-filter" style="width:150px;display:inline;">
+					<div class="pull-right">
+						<select name="ddlDateRange" id="ddlDateRange" class="form-control wb-lb-filter" style="width:150px;display:inline;">
 						<option value="7">7 Days</option>
-						<option value="30">30 Days</option>
+						<option value="30" selected="selected">30 Days</option>
 						<option value="60">60 Days</option>
-						<option value="90" selected="selected">90 Days</option>
+						<option value="90">90 Days</option>
 						<option value="180">180 Days</option>						
 					</select>
-				</div>
+					</div>
+				</div>				
 			</div>
 		</div>
 	</div>
@@ -99,11 +104,14 @@
 
 @section('script')
 	@parent
+
 	<script src="//scripts.dynatronsoftware.com/jchartfx/jchartfx.system.js"></script>
 	<script src="//scripts.dynatronsoftware.com/jchartfx/jchartfx.coreVector.js"></script>
 	<script src="//scripts.dynatronsoftware.com/jchartfx/jchartfx.animation.js"></script>				
+	<script src="//scripts.dynatronsoftware.com/jchartfx/jchartfx.advanced.js"></script>
 	
 	<script src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js"></script>	
 	<script src="//cdn.datatables.net/plug-ins/380cb78f450/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+
 
 @stop
