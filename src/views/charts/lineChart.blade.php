@@ -14,13 +14,7 @@
 			<div class="panel-body">
 				<div>
 				<div class="pull-right">			
-					<div class="form-group" style="display:inline;font-size:10px;">
-					<input type="checkbox" class="chkbox-group-{{ $chart->id }}" value="1" checked="checked" /> SQL 1
-					<input type="checkbox" class="chkbox-group-{{ $chart->id }}" value="2" checked="checked" /> SQL 2
-					<input type="checkbox" class="chkbox-group-{{ $chart->id }}" value="3" checked="checked" /> SQL 3
-					<input type="checkbox" class="chkbox-group-{{ $chart->id }}" value="4" checked="checked" /> SQL 4
-					<input type="checkbox" class="chkbox-group-{{ $chart->id }}" value="5" checked="checked" /> SQL 5
-					<input type="checkbox" class="chkbox-group-{{ $chart->id }}" value="6" checked="checked" /> SQL 6
+					<div id="chkbox-group-{{ $chart->id }}" class="form-group chkbox-group">
 					</div>
 				</div>
 				<div id="div-chart-{{ $chart->id }}" class="chart" style="width:100%;height:400px;display:inline-block"></div>
@@ -55,7 +49,7 @@
 		chart1.setGallery(cfx.Gallery.Lines);
 		chart1.getAllSeries().setMarkerShape(cfx.MarkerShape.None);
 		chart1.getAxisX().setLabelAngle(45);
-		chart1.getAnimations().getLoad().setEnabled(true);
+		//chart1.getAnimations().getLoad().setEnabled(true);
 		//chart1.getAxisX().setAutoScroll(true);
 		//chart1.getAxisX().setClientScroll(true);
 		
@@ -63,11 +57,21 @@
 		chart1.setDataSource(items);		
 		chart1.create('div-chart-{{ $chart->id }}');
 
+		//create checkboxes
+		var i = 0;
+		while(chart1.getSeries().getItem(i) != undefined)
+		{
+			var chkbox = '<input type="checkbox" class="chkbox-group-{{ $chart->id }}" value="'+ i +'" checked="checked" />' + chart1.getSeries().getItem(i).getText();
+			$('#chkbox-group-{{ $chart->id }}').append(chkbox);
+			i++;
+		}
+		
+
 		//checkbox toggle series display
 		$( ".chkbox-group-{{ $chart->id}}" ).click(function() 
 		{
 			var bToggle = $(this).is(":checked") ? true : false;
-			chart1.getSeries().getItem($(this).val()-1).setVisible(bToggle);
+			chart1.getSeries().getItem($(this).val()).setVisible(bToggle);
 		});
 
 		//btn toggle between chart-type / datatable

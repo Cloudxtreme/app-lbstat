@@ -48,6 +48,14 @@
 			right:25px;
 		}
 
+		.chkbox-group {
+			 display:inline;
+			 font-size:10px;
+		}
+		.chkbox-group input {
+			margin:5px;
+		}
+
 	</style>
 @stop
 
