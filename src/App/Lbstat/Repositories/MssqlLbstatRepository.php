@@ -13,7 +13,7 @@ class MssqlLbstatRepository implements LbstatRepositoryInterface
 		$this->db->connection('dyna-sql6');
 	}
 
-	public function getClicksByDateServer($drange)
+	public function getClicksByDateServer($dateRange)
 	{
 		return $this->db->query("
 			-- By Date/Server
@@ -26,7 +26,7 @@ class MssqlLbstatRepository implements LbstatRepositoryInterface
 			FROM
 				(SELECT date, server, clicks--, avg_size, avg_speed
 				FROM [Utility].[dbo].[tbl_stat_lb_pages]
-				WHERE [date] BETWEEN DATEADD(dd, -".$drange.", getdate()) AND getdate()) AS SourceTbl
+				WHERE [date] BETWEEN DATEADD(dd, -".$dateRange.", getdate()) AND getdate()) AS SourceTbl
 
 			PIVOT
 			(
@@ -37,7 +37,7 @@ class MssqlLbstatRepository implements LbstatRepositoryInterface
 		")->get();
 	}
 
-	public function getPageSizeByDateServer($drange)
+	public function getPageSizeByDateServer($dateRange)
 	{
 		return $this->db->query("
 			-- By Date/Server
@@ -45,12 +45,12 @@ class MssqlLbstatRepository implements LbstatRepositoryInterface
 			-- Three area graphs, one for clicks, size and speed
 			-- This is the main metric we can use to watch server performance
 			-- If this slowly decreases, we are increasing server capacity or making pages more efficient
-			SELECT date,
+			SELECT CONVERT(VARCHAR(10), date, 7) AS [Mon DD],
 				[1] AS SQL1, [2] AS SQL2, [3] AS SQL3, [4] AS SQL4, [5] AS SQL5, [6] AS SQL6
 			FROM
 				(SELECT date, server, avg_size
 				FROM [Utility].[dbo].[tbl_stat_lb_pages]
-				WHERE [date] BETWEEN DATEADD(dd, -".$drange.", getdate()) AND getdate()) AS SourceTbl
+				WHERE [date] BETWEEN DATEADD(dd, -".$dateRange.", getdate()) AND getdate()) AS SourceTbl
 
 			PIVOT
 			(
@@ -61,7 +61,7 @@ class MssqlLbstatRepository implements LbstatRepositoryInterface
 		")->get();
 	}
 
-	public function getPageSpeedByDateServer($drange)
+	public function getPageSpeedByDateServer($dateRange)
 	{
 		return $this->db->query("
 			-- By Date/Server
@@ -69,12 +69,12 @@ class MssqlLbstatRepository implements LbstatRepositoryInterface
 			-- Three area graphs, one for clicks, size and speed
 			-- This is the main metric we can use to watch server performance
 			-- If this slowly decreases, we are increasing server capacity or making pages more efficient
-			SELECT date,
+			SELECT CONVERT(VARCHAR(10), date, 7) AS [Mon DD],
 				[1] AS SQL1, [2] AS SQL2, [3] AS SQL3, [4] AS SQL4, [5] AS SQL5, [6] AS SQL6
 			FROM
 				(SELECT date, server, avg_speed
 				FROM [Utility].[dbo].[tbl_stat_lb_pages]
-				WHERE [date] BETWEEN DATEADD(dd, -".$drange.", getdate()) AND getdate()) AS SourceTbl
+				WHERE [date] BETWEEN DATEADD(dd, -".$dateRange.", getdate()) AND getdate()) AS SourceTbl
 
 			PIVOT
 			(

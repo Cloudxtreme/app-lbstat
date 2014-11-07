@@ -3,7 +3,7 @@
 @section('css')
 	@parent
 	<link href="//css.dynatronsoftware.com/jchartfx/jchartfx.attributes.css" rel="stylesheet">
-
+	<link href="//cdn.datatables.net/plug-ins/380cb78f450/integration/bootstrap/3/dataTables.bootstrap.css">
 	<style>
 
 		.body, .no-container .body {
@@ -15,7 +15,7 @@
 			margin-top:5px;
 		}
 
-		#divCharts {
+		#div-charts {
 			margin-top:15px;
 		}
 
@@ -42,6 +42,12 @@
 			color:#666666 !important;
 		}
 
+		.panel-icons {
+			position:absolute;
+			top:10px;
+			right:25px;
+		}
+
 	</style>
 @stop
 
@@ -55,19 +61,19 @@
 					<div class="text-default"><i class="fa fa-sliders fa-large"></i> Load Balancer</div>
 				</div>
 				<div class="col-md-6 wb-subheader-content">
-					<select name="ddlChartType" id="ddlChartType" class="form-control" style="width:250px;" onchange="fnLoadCharts()">
+					<select name="ddlChartType" id="ddlChartType" class="form-control wb-lb-filter" style="width:250px;">
 						<option value="Overview" selected="selected">Overview Charts</option>
 						<option value="Apps">App Charts</option>
 						<option value="Pages">Page Charts</option>
 					</select>
 				</div>
 				<div class="col-md-3 wb-subheader-cap text-right">
-					<select name="ddlDateRange" id="ddlDateRange" class="form-control" style="width:150px;display:inline;" onchange="fnLoadCharts()">
+					<select name="ddlDateRange" id="ddlDateRange" class="form-control wb-lb-filter" style="width:150px;display:inline;">
+						<option value="7">7 Days</option>
 						<option value="30">30 Days</option>
 						<option value="60">60 Days</option>
 						<option value="90" selected="selected">90 Days</option>
-						<option value="180">180 Days</option>
-						<option value="365">1 Year</option>
+						<option value="180">180 Days</option>						
 					</select>
 				</div>
 			</div>
@@ -87,4 +93,9 @@
 	@parent
 	<script src="//scripts.dynatronsoftware.com/jchartfx/jchartfx.system.js"></script>
 	<script src="//scripts.dynatronsoftware.com/jchartfx/jchartfx.coreVector.js"></script>
+	<script src="//scripts.dynatronsoftware.com/jchartfx/jchartfx.animation.js"></script>				
+	
+	<script src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js"></script>	
+	<script src="//cdn.datatables.net/plug-ins/380cb78f450/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+
 @stop

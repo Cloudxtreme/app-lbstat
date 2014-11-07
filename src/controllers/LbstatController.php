@@ -19,55 +19,55 @@ class LbstatController extends \BaseController {
 	{
 		\Lifecycle::add(__FILE__.' - '.__FUNCTION__);
 
-		$charts = array(
-			'Overview' => array(
-				'charts' => array(
-				100
-				, 101
-				, 102
-				)
-			)
-			, 'Apps' => array(
-				'charts' => array(
-				200
-				, 201
-				, 202
-				, 203
-				, 204
-				)
-			)
-		);
-
-		$charts = json_encode([$charts]);
+		$chartData = [
+			'Overview' => [
+				'charts' => [
+					100
+					, 101
+					, 102
+				]
+			]
+			, 'Apps' => [
+				'charts' => [
+					200
+					, 201
+					, 202
+					, 203
+					, 204
+				]
+			]
+		];
+		$chartData = json_encode([$chartData]);
 		
 		$post = Mrcore::post()->prepare();
 		return View::make('lbstat::index', compact(
-			'post', 'charts'
+			'post', 'chartData'
 		));
 	}
 
-	public function getChart($chart_id, $drange)
+	public function getChart($chartID, $dateRange)
 	{
 
 		$chart = new \stdClass();
-		$chart->id = $chart_id;
+		$chart->id = $chartID;
 
-		switch($chart_id)
+		switch($chartID)
 		{
 			case 100:
-				$chart->data = $this->repo->getClicksByDateServer($drange);	
-				$chart->name = 'Total Clicks per Server by Date';
+				$chart->data = $this->repo->getClicksByDateServer($dateRange);	
+				$chart->name = 'Total Clicks per Server by Date';				
 			break;
 			case 101:
-				$chart->data = $this->repo->getPageSizeByDateServer($drange);
+				$chart->data = $this->repo->getPageSizeByDateServer($dateRange);
 				$chart->name = 'Average Page Size per Server by Date';
 			break;
 			case 102:
-				$chart->data = $this->repo->getPageSpeedByDateServer($drange);	
+				$chart->data = $this->repo->getPageSpeedByDateServer($dateRange);	
 				$chart->name = 'Average Page Speed per Server by Date';
+
 			break;
 			default:
-				$chart->data = $this->repo->getPageSpeedByDateServer($drange);	
+				$chart->data = $this->repo->getPageSpeedByDateServer($dateRange);	
 				$chart->name = '[Random Data]';
 			break;
 		}

@@ -3,10 +3,10 @@
 interface LbstatRepositoryInterface
 {
 
-	public function getClicksByDateServer($drange);
+	public function getClicksByDateServer($dateRange);
 
-	public function getPageSizeByDateServer($drange);
+	public function getPageSizeByDateServer($dateRange);
 
-	public function getPageSpeedByDateServer($drange);
+	public function getPageSpeedByDateServer($dateRange);
 
 }

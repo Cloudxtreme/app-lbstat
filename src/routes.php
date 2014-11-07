@@ -7,7 +7,7 @@ Route::group(['prefix' => '/app/lbstat'], function() {
 	    'uses' => 'App\Lbstat\LbstatController@index'
 	));
 
-	Route::get('/getChart/{chart_id}/{day_range}', array(
+	Route::get('/getChart/{chartID}/{dateRange}', array(
 		'uses' => 'App\Lbstat\LbstatController@getChart'
 	));
 
