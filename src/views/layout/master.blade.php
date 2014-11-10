@@ -17,24 +17,6 @@
 			margin-top:15px;
 		}
 
-		.wb-subheader {
-			border-bottom:1px solid #dddddd;
-			background-color:#ededed;
-		}
-
-		.wb-subheader-row {
-			border-left:1px solid #dddddd;
-			border-right:1px solid #dddddd;
-			height:45px;
-		}
-
-		.wb-subheader-label div {
-			font-weight:bold;
-			font-size:18px;
-			height:45px;
-			padding-top:10px;
-		}
-
 		.panel-heading {
 			font-weight:bold;
 			color:#666666 !important;
@@ -48,6 +30,7 @@
 
 		.panel-icons button {
 			display:none;
+			height:20px;
 		}
 
 		.chkbox-group {
@@ -65,7 +48,7 @@
 
 @section('content')
 
-	<div class="wb-subheader">
+	<!--<div class="wb-subheader">
 		<div class="container">
 			<div class="row wb-subheader-row">
 				<div class="col-md-3 wb-subheader-label bg-primary">
@@ -74,10 +57,28 @@
 					</div>
 				</div>
 				<div class="col-md-9 wb-subheader-content">
-					<select name="ddlChartType" id="ddlChartType" class="form-control wb-lb-filter" style="display:inline;width:250px;">
+					<select name="ddlChartType" id="ddlChartType" class="form-control wb-lb-filter" style="display:inline;width:175px;">
 						<option value="Overview" selected="selected">Overview Charts</option>
 						<option value="Apps">App Charts</option>
 						<option value="Pages">Page Charts</option>
+						<option value="Hosts">Hosts Charts</option>
+					</select>
+					<select name="ddlAppType" id="ddlAppType" class="form-control wb-lb-filter" style="display:none;width:175px;">
+						<option value="webaq" selected="selected">WebAQ</option>
+						<option value="websa">WebSA</option>
+						<option value="ebis">Ebis</option>
+						<option value="menus">Menus</option>
+						<option value="carmail">CarMail</option>
+						<option value="dynaarmor">DynaArmor</option>
+						<option value="profiler">Profiler</option>
+						<option value="castle">Castle</option>
+						<option value="dynacall">DynaCall</option>
+						<option value="simmons">Simmons</option>
+						<option value="sso">SSO</option>
+						<option value="qma">QMA</option>
+						<option value="survey">Survey</option>
+						<option value="vpg">VPG</option>
+						<option value="aaacarcare">AAACarCare</option>
 					</select>
 					<div class="pull-right">
 						<select name="ddlDateRange" id="ddlDateRange" class="form-control wb-lb-filter" style="width:150px;display:inline;">
@@ -91,7 +92,46 @@
 				</div>				
 			</div>
 		</div>
-	</div>
+	</div>-->
+
+	@section('subheader-title')
+		<i class="fa fa-sliders fa-large"></i> Load Balancer
+	@stop
+	@section('subheader-content')
+		<select name="ddlChartType" id="ddlChartType" class="form-control wb-lb-filter" style="display:inline;width:175px;">
+			<option value="Overview" selected="selected">Overview Charts</option>
+			<option value="Apps">App Charts</option>
+			<option value="Pages">Page Charts</option>
+			<option value="Hosts">Hosts Charts</option>
+		</select>
+		<select name="ddlAppType" id="ddlAppType" class="form-control wb-lb-filter" style="display:none;width:175px;">
+			<option value="webaq" selected="selected">WebAQ</option>
+			<option value="websa">WebSA</option>
+			<option value="ebis">Ebis</option>
+			<option value="menus">Menus</option>
+			<option value="carmail">CarMail</option>
+			<option value="dynaarmor">DynaArmor</option>
+			<option value="profiler">Profiler</option>
+			<option value="castle">Castle</option>
+			<option value="dynacall">DynaCall</option>
+			<option value="simmons">Simmons</option>
+			<option value="sso">SSO</option>
+			<option value="qma">QMA</option>
+			<option value="survey">Survey</option>
+			<option value="vpg">VPG</option>
+			<option value="aaacarcare">AAACarCare</option>
+		</select>
+		<div class="pull-right">
+			<select name="ddlDateRange" id="ddlDateRange" class="form-control wb-lb-filter" style="width:150px;display:inline;">
+			<option value="7">7 Days</option>
+			<option value="30" selected="selected">30 Days</option>
+			<option value="60">60 Days</option>
+			<option value="90">90 Days</option>
+			<option value="180">180 Days</option>						
+		</select>
+		</div>
+	@stop
+
 	<div class="container">
 		<div class="row">
 			<div class="wb-content col-md-12">
@@ -107,7 +147,7 @@
 
 	<script src="//scripts.dynatronsoftware.com/jchartfx/jchartfx.system.js"></script>
 	<script src="//scripts.dynatronsoftware.com/jchartfx/jchartfx.coreVector.js"></script>
-	<script src="//scripts.dynatronsoftware.com/jchartfx/jchartfx.animation.js"></script>				
+	<script src="//scripts.dynatronsoftware.com/jchartfx/jchartfx.animation.js"></script>
 	<script src="//scripts.dynatronsoftware.com/jchartfx/jchartfx.advanced.js"></script>
 	
 	<script src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js"></script>	

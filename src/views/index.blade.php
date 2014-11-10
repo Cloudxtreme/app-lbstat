@@ -21,6 +21,17 @@
 	function fnLoadCharts() {
 		chartType = $('#ddlChartType').val();
 		dateRange = $('#ddlDateRange').val();
+		appName = $('#ddlAppType').val();
+
+		if(chartType == 'Overview')
+		{
+			$('#ddlAppType').hide();
+		}
+		else
+		{
+			$('#ddlAppType').css('display', 'inline');
+		}
+
 		counter = 0;
 		$('#div-charts').empty();
 		totalRecords = charts[0][chartType]['charts'].length;
@@ -31,7 +42,7 @@
 	//ajax call to inject chart data
 	function fnAjaxLoadCharts() {
 		$.ajax({
-			url: 'lbstat/getChart/'+charts[0][chartType]['charts'][counter] +'/'+dateRange
+			url: 'lbstat/getChart/'+charts[0][chartType]['charts'][counter] +'/'+dateRange+'/'+appName
 			/*, async: false*/
 		}).done(function(data) {
 			counter++;
@@ -39,6 +50,10 @@
 			if(counter < totalRecords)
 			{
 				fnAjaxLoadCharts();
+			}
+			else
+			{
+				$( ".wb-lb-filter" ).prop('disabled', false);
 			}
 			$('#div-charts').append(data);
 		});
@@ -51,6 +66,7 @@
 
 	//changing chart filters
 	$( ".wb-lb-filter" ).change(function() {
+		$( ".wb-lb-filter" ).prop('disabled', true);
 		fnLoadCharts();
 	});
 	</script>

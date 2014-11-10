@@ -56,7 +56,7 @@
 		chart1.getAxisX().setLabelAngle(45);
 		chart1.getAnimations().getLoad().setEnabled({{ $chart->doAnimate }});
 		chart1.getAxisX().setAutoScroll({{ $chart->doScroll }});
-		chart1.getAxisX().setClientScroll({{ $chart->doScroll }});
+		chart1.getAxisX().setClientScroll({{ $chart->doScroll }});		
 		
 		//create chart
 		chart1.setDataSource(items);		

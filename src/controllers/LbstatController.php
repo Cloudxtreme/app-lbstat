@@ -29,19 +29,23 @@ class LbstatController extends \BaseController {
 					100
 					, 101
 					, 102
-					, 103 //test
-					, 104 //test
-					, 105 //test
-
 				]
 			]
 			, 'Apps' => [
 				'charts' => [
-					200 //test
-					, 201 //test
-					, 202 //test
-					, 203 //test
-					, 204 //test
+					200
+					, 201
+					, 202 
+				]
+			]
+			, 'Pages' => [
+				'charts' => [
+					300
+				]
+			]
+			, 'Hosts' => [
+				'charts' => [
+					400
 				]
 			]
 		];
@@ -57,11 +61,10 @@ class LbstatController extends \BaseController {
 	return chartDisplay view with appropriate chart data
 	 */
 
-	public function getChart($chartID, $dateRange)
+	public function getChart($chartID, $dateRange, $appName)
 	{
 
-		$chart = new \stdClass();
-			
+		$chart = new \stdClass();			
 		/* ChartTypes:
 			0 - DataTable
 			1 - Line Chart
@@ -91,13 +94,14 @@ class LbstatController extends \BaseController {
 				$data = $this->repo->getClicksByDateServer($dateRange);	
 				$chart->name = 'Total Clicks per Server';	
 				$chart->chartType = 1;							
-				$chart->chartsAvailable = json_encode([0,1,2,3,5,6,8,12,13,15,20]);
+				$chart->chartsAvailable = json_encode([0,1,2,3,12,20]);
 				$chart->colSize = 12;				
 			break;
 			case 101:
 				$data = $this->repo->getPageSizeByDateServer($dateRange);
 				$chart->name = 'Average Page Size per Server';	
 				$chart->chartType = 2;			
+				$chart->chartsAvailable = json_encode([0,1,2,3,12,20]);
 				$chart->colSize = 6;
 				$chart->doAnimate = true;
 			break;
@@ -108,31 +112,37 @@ class LbstatController extends \BaseController {
 				$chart->chartsAvailable = json_encode([0,1,2,3,12,20]);
 				$chart->colSize = 6;
 			break;
+			case 200:
+				$data = $this->repo->getClicksByAppDateServer($dateRange, $appName);	
+				$chart->name = 'Total Clicks per Server - ('.$appName.')';
+				$chart->chartsAvailable = json_encode([0,1,2,3,12,20]);								
+			break;
+			case 201:
+				$data = $this->repo->getPageSizeByAppDateServer($dateRange, $appName);	
+				$chart->name = 'Average Page Size per Server - ('.$appName.')';
+				$chart->chartsAvailable = json_encode([0,1,2,3,12,20]);				
+			break;
+			case 202:
+				$data = $this->repo->getPageSpeedByAppDateServer($dateRange, $appName);	
+				$chart->name = 'Average Page Speed per Server - ('.$appName.')';
+				$chart->chartsAvailable = json_encode([0,1,2,3,12,20]);				
+			break;
+			case 300:
+				$data = $this->repo->getAllDataByAppPageDateServer($dateRange, $appName);	
+				$chart->chartType = 5;
+				$chart->chartsAvailable = json_encode([0,2,5,20]);
+				$chart->name = 'Total Clicks, Avg. Page Size, Avg. Page Speed by Page - ('.$appName.')';				
+			break;
+			case 400:
+				$data = $this->repo->getHostByAppDateServer($dateRange, $appName);
+				$chart->chartType = 2;
+				$chart->chartsAvailable = json_encode([0,2,20]);
+				$chart->name = 'Total Clicks, Avg. Page Size, Avg. Page Speed by Host - ('.$appName.')';				
+			break;
 			default:
 				$data = $this->repo->getPageSpeedByDateServer($dateRange);					
 			break;
 		}
-
-		//compact data for high date ranges
-		/*if($dateRange >= 90)
-		{
-			if($dateRange == 90)
-			{
-				$num = 5;
-			} else if($dateRange == 180)
-			{
-				$num = 15;
-			} else {
-				$num = 30;
-			}
-			$i = 0;
-			foreach($data as $value) {
-			    if ($i++ % $num == 0) {
-			        $result[] = $value;
-			    }
-			}
-			$data = json_encode($result);
-		}*/
 
 		$chart->data = $data;
 
