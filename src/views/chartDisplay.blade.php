@@ -52,7 +52,9 @@
 		
 		//chart options
 		chart1.setGallery({{ $chart->chartType }});		
-		chart1.getAllSeries().setMarkerShape(cfx.MarkerShape.None);
+		//Don't turn off markershape, this breaks the points labels		
+		//chart1.getAllSeries().setMarkerShape(cfx.MarkerShape.None);
+		chart1.getAllSeries().setMarkerSize(2);
 		chart1.getAxisX().setLabelAngle(45);
 		chart1.getAnimations().getLoad().setEnabled({{ $chart->doAnimate }});
 		chart1.getAxisX().setAutoScroll({{ $chart->doScroll }});

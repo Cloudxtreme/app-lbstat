@@ -26,16 +26,16 @@ class LbstatController extends \BaseController {
 		$chartData = [
 			'Overview' => [
 				'charts' => [
-					100
+					102
+					, 100
 					, 101
-					, 102
 				]
 			]
 			, 'Apps' => [
 				'charts' => [
-					200
-					, 201
-					, 202 
+					202
+					, 200
+					, 201 
 				]
 			]
 			, 'Pages' => [
@@ -93,9 +93,9 @@ class LbstatController extends \BaseController {
 			case 100:
 				$data = $this->repo->getClicksByDateServer($dateRange);	
 				$chart->name = 'Total Clicks per Server';	
-				$chart->chartType = 1;							
+				$chart->chartType = 3;							
 				$chart->chartsAvailable = json_encode([0,1,2,3,12,20]);
-				$chart->colSize = 12;				
+				$chart->colSize = 6;				
 			break;
 			case 101:
 				$data = $this->repo->getPageSizeByDateServer($dateRange);
@@ -108,9 +108,8 @@ class LbstatController extends \BaseController {
 			case 102:
 				$data = $this->repo->getPageSpeedByDateServer($dateRange);	
 				$chart->name = 'Average Page Speed per Server';
-				$chart->chartType = 3;				
-				$chart->chartsAvailable = json_encode([0,1,2,3,12,20]);
-				$chart->colSize = 6;
+				$chart->chartType = 1;				
+				$chart->chartsAvailable = json_encode([0,1,2,3,12,20]);				
 			break;
 			case 200:
 				$data = $this->repo->getClicksByAppDateServer($dateRange, $appName);	
